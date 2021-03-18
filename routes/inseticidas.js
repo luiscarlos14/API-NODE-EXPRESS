@@ -10,7 +10,7 @@ router.get('/', (req, res, next)=>{
         if(error){ return res.status(500).send({ error : error }) }
 
         conn.query(
-            'SELECT * FROM vendas;',
+            'SELECT * FROM inseticida;',
             
             (error, result, fields) => {
                 
@@ -29,8 +29,8 @@ router.post('/', (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO vendas (usuario_venda, desc_venda, data_venda, desc_comprador, qtd_venda, valor_venda, num_pedido, uni_venda) VALUES (?,?,?,?,?,?,?,?)',
-            [req.body.usuario_venda,req.body.desc_venda, req.body.data_venda, req.body.desc_comprador, req.body.qtd_venda, req.body.valor_venda, req.body.num_pedido, req.body.uni_venda],
+            'INSERT INTO inseticida (desc_inset, inset_use) VALUES (?,?)',
+            [req.body.desc_inset, req.body.inset_use],
             
             (error, result, field) => {
                 conn.release();
@@ -42,7 +42,7 @@ router.post('/', (req, res, next) =>{
                     });
                 } 
                 res.status(201).send({
-                    mensagem : 'Venda adicionada com sucesso!'
+                    mensagem : 'Inseticida inserido com sucesso!'
                 });
             }
         )
@@ -58,9 +58,8 @@ router.patch('/', (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE vendas SET desc_venda = ?, desc_comprador = ?, data_venda = ?, qtd_venda = ?, valor_venda = ?, num_pedido = ?, uni_venda = ? WHERE id_vendas = ?',   
-
-            [req.body.desc_venda, req.body.desc_comprador, req.body.data_venda, req.body.qtd_venda, req.body.valor_venda, req.body.num_pedido, req.body.uni_venda, req.body.id_vendas],
+            'UPDATE inseticida SET desc_inset = ? WHERE id_inset = ?',             
+            [req.body.desc_inset, req.body.id_inset],
             
             (error, result, field) => {
                 conn.release();
@@ -87,8 +86,8 @@ router.delete('/', (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM vendas WHERE id_vendas = ?',             
-            [req.body.id_vendas],
+            'DELETE FROM inseticida WHERE id_inset = ?',             
+            [req.body.id_inset],
             
             (error, result, field) => {
                 conn.release();
