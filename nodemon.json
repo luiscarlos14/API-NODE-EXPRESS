@@ -6,6 +6,6 @@
         "MYSQL_HOST" : "localhost",
         "MYSQL_PORT" : 3306,
 
-        "JWT_KEY": "chave"
+        "JWT_KEY": "ss18764@pi"
     }
 }

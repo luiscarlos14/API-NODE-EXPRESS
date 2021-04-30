@@ -3,8 +3,9 @@ const app = require('../app');
 const router = express.Router();
 const mysql =  require("../mysql").pool;
 const bcrypt = require('bcrypt');
+const protected = require('../middleware/protected');
 
-router.get('/', (req, res, next)=>{
+router.get('/', protected.obrigatorio, (req, res, next)=>{
 
     mysql.getConnection((error, conn) =>{
 
@@ -23,7 +24,7 @@ router.get('/', (req, res, next)=>{
     });
 });
 
-router.post('/', (req, res, next) =>{
+router.post('/', protected.obrigatorio, (req, res, next) =>{
 
     mysql.getConnection((error, conn) =>{
 
@@ -47,6 +48,7 @@ router.post('/', (req, res, next) =>{
             }
 
             else{
+                
                 bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
 
                     if (errBcrypt){
@@ -76,14 +78,11 @@ router.post('/', (req, res, next) =>{
                 });
             }
         })
-
-        
-
     });
 
 });
 
-router.patch('/', (req, res, next) =>{
+router.patch('/', protected.obrigatorio, (req, res, next) =>{
 
     mysql.getConnection((error, conn) =>{
 
@@ -112,7 +111,7 @@ router.patch('/', (req, res, next) =>{
 
 });
 
-router.delete('/', (req, res, next) =>{
+router.delete('/', protected.obrigatorio, (req, res, next) =>{
     mysql.getConnection((error, conn) =>{
 
         if(error){ return res.status(500).send({ error : error });}

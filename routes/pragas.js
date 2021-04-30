@@ -2,8 +2,9 @@ const express = require('express');
 const app = require('../app');
 const router = express.Router();
 const mysql =  require("../mysql").pool;
+const protected = require('../middleware/protected');
 
-router.get('/', (req, res, next)=>{
+router.get('/', protected.obrigatorio, (req, res, next)=>{
 
     mysql.getConnection((error, conn) =>{
 

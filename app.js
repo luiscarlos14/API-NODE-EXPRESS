@@ -3,6 +3,9 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+const cors = require('cors');
+app.use(cors());
+
 const rotaVendas = require('./routes/vendas');
 const rotaUsuarios = require('./routes/usuarios');
 const rotaProdutos = require('./routes/produtos');
@@ -22,11 +25,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.header('Acess-Control-Allow-Origin', '*'); //Escolhe o server que ode aceitar no *
-    res.header('Acess-Control-Allow-Header, Origin, X-Requested-Widh, Accept, Authorization, Content-Type');
+    res.header('Access-Control-Allow-Origin', '*'); 
+    res.header('Access-Control-Allow-Header', 'Origin, X-Requested-Widh, Accept, Authorization, Content-Type');
 
     if (res.method === 'OPTIONS'){
-        res.header('Acess-Control-Allow-Methods', 'PUT, POST, DELETE, GET, PATCH');
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, DELETE, GET, PATCH, HEAD');
         return res.status(200).send({});
     }
 
@@ -45,6 +48,14 @@ app.use('/funcionarios', rotaFuncionarios);
 app.use('/fornecedores', rotaFornecedores);
 app.use('/despesas', rotaDespesas);
 app.use('/colheitas', rotaColheitas);
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials:true,   
+    optionsSuccessStatus: 200
+}
+  
+app.use(cors(corsOptions));
 
 app.use('/login', rotaLogin);
 
