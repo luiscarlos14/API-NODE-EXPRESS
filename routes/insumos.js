@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO insumos (usuario_insumo, estoque, valor_estoque, desc_insumo, data_compra, data_validade, uni_insumos) VALUES (?,?,?,?,?,?,?)',
-            [req.body.usuario_insumo, req.body.estoque, req.body.valor_estoque, req.body.desc_insumo, req.body.data_compra, req.body.data_validade, req.body.uni_insumos],
+            'INSERT INTO insumos (usuario, estoque, valor, descricao, compra, validade, unidade) VALUES (?,?,?,?,?,?,?)',
+            [req.body.usuario, req.body.estoque, req.body.valor, req.body.descricao, req.body.compra, req.body.validade, req.body.unidade],
             
             (error, result, field) => {
                 conn.release();
@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE insumos SET estoque = ?, valor_estoque = ?, desc_insumo = ?, data_compra = ?, data_validade = ?, uni_insumos = ? WHERE id_insumo = ?',             
-            [req.body.estoque, req.body.valor_estoque, req.body.desc_insumo, req.body.data_compra, req.body.data_validade, req.body.uni_insumos, req.body.id_insumo],
+            'UPDATE insumos SET estoque = ?, valor = ?, descricao = ?, compra = ?, validade = ?, unidade = ? WHERE id = ?',             
+            [req.body.estoque, req.body.valor, req.body.descricao, req.body.compra, req.body.validade, req.body.unidade, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM insumos WHERE id_insumo = ?',             
-            [req.body.id_insumo],
+            'DELETE FROM insumos WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

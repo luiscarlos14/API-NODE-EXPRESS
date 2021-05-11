@@ -46,11 +46,7 @@ router.post('/', (req, res, next) =>{
 
                 }
 
-<<<<<<< HEAD
                 return res.status(401).send({valido:false})
-=======
-                return res.status(401).send({valido: false})
->>>>>>> 68db1601cdf241442867be27c883f9b7c78938bd
             });
         });
     });

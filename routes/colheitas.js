@@ -25,13 +25,13 @@ router.get('/', protected.obrigatorio, (req, res, next)=>{
 
 router.post('/', protected.obrigatorio, (req, res, next) =>{
 
-    mysql.getConnection((error, conn) =>{
+    mysql.getConnection((error, conn) => {
 
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
             'INSERT INTO colheita (usuario, funcionario, descricao, quantidade, data, unidade) VALUES (?,?,?,?,?,?)',
-            [req.body.usuario, req.body.funcinario, req.body.descricao, req.body.quantidade, req.body.data, req.body.unidade],
+            [req.body.usuario, req.body.funcionario, req.body.descricao, req.body.quantidade, req.body.data, req.body.unidade],
             
             (error, result, field) => {
                 conn.release();

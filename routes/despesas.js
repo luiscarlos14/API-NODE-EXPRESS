@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO despesas (usuario_despesa, desc_despesa, data_despesa, valor_despesa, despesa_paga) VALUES (?,?,?,?,?)',
-            [req.body.usuario_despesa, req.body.desc_despesa, req.body.data_despesa, req.body.valor_despesa, req.body.despesa_paga],
+            'INSERT INTO despesas (usuario, descricao, data, valor, paga, frequencia) VALUES (?,?,?,?,?,?)',
+            [req.body.usuario, req.body.descricao, req.body.data, req.body.valor, req.body.paga, req.body.frequencia],
             
             (error, result, field) => {
                 conn.release();
@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE despesas SET desc_despesa = ?, data_despesa = ?, valor_despesa = ?, despesa_paga = ? WHERE id_despesas = ?',             
-            [req.body.desc_despesa, req.body.data_despesa, req.body.valor_despesa, req.body.despesa_paga, req.body.id_despesas],
+            'UPDATE despesas SET descricao = ?, data = ?, valor = ?, paga = ?, frequencia = ? WHERE id = ?',             
+            [req.body.descricao, req.body.data, req.body.valor, req.body.paga, req.body.frequencia, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM despesas WHERE id_despesas = ?',             
-            [req.body.id_despesas],
+            'DELETE FROM despesas WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

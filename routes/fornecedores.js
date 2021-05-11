@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE fornecedor SET produtos = ?, nome = ?, email = ?, telefone = ?, cnpj = ?, endereco = ? WHERE id_fornecedor = ?',             
-            [req.body.produtos, req.body.nome, req.body.email, req.body.telefone, req.body.cnpj, req.body.endereco, req.body.id_fornecedor],
+            'UPDATE fornecedor SET produtos = ?, nome = ?, email = ?, telefone = ?, cnpj = ?, endereco = ? WHERE id = ?',             
+            [req.body.produtos, req.body.nome, req.body.email, req.body.telefone, req.body.cnpj, req.body.endereco, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM fornecedor WHERE id_fornecedor = ?',             
-            [req.body.id_fornecedor],
+            'DELETE FROM fornecedor WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

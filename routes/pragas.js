@@ -23,15 +23,15 @@ router.get('/', protected.obrigatorio, (req, res, next)=>{
     });
 });
 
-router.post('/', (req, res, next) =>{
+router.post('/', protected.obrigatorio, (req, res, next) =>{
 
     mysql.getConnection((error, conn) =>{
 
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO pragas (inset_praga, desc_praga, data_ident, data_combat) VALUES (?,?,?,?)',
-            [req.body.inset_praga, req.body.desc_praga, req.body.data_ident, req.body.data_combat],
+            'INSERT INTO pragas (inseticida, descricao, identificada, combatida) VALUES (?,?,?,?)',
+            [req.body.inseticida, req.body.descricao, req.body.identificada, req.body.combatida],
             
             (error, result, field) => {
                 conn.release();
@@ -52,15 +52,15 @@ router.post('/', (req, res, next) =>{
 
 });
 
-router.patch('/', (req, res, next) =>{
+router.patch('/', protected.obrigatorio, (req, res, next) =>{
 
     mysql.getConnection((error, conn) =>{
 
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE pragas SET inset_praga = ?, desc_praga = ?, data_ident = ?, data_combat = ? WHERE id_praga = ?',             
-            [req.body.inset_praga, req.body.desc_praga, req.body.data_ident, req.body.data_combat, req.body.id_praga],
+            'UPDATE pragas SET inseticida = ?, descricao = ?, identificada = ?, combatida = ? WHERE id = ?',             
+            [req.body.inseticida, req.body.descricao, req.body.identificada, req.body.combatida, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -81,14 +81,14 @@ router.patch('/', (req, res, next) =>{
 
 });
 
-router.delete('/', (req, res, next) =>{
+router.delete('/', protected.obrigatorio, (req, res, next) =>{
     mysql.getConnection((error, conn) =>{
 
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM pragas WHERE id_praga = ?',             
-            [req.body.id_praga],
+            'DELETE FROM pragas WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

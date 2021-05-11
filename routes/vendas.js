@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO vendas (usuario_venda, desc_venda, data_venda, desc_comprador, qtd_venda, valor_venda, num_pedido, uni_venda) VALUES (?,?,?,?,?,?,?,?)',
-            [req.body.usuario_venda,req.body.desc_venda, req.body.data_venda, req.body.desc_comprador, req.body.qtd_venda, req.body.valor_venda, req.body.num_pedido, req.body.uni_venda],
+            'INSERT INTO vendas (usuario, descricao, data, comprador, quantidade, valor, numero, unidade, frequencia) VALUES (?,?,?,?,?,?,?,?,?)',
+            [req.body.usuario, req.body.descricao, req.body.data, req.body.comprador, req.body.quantidade, req.body.valor, req.body.numero, req.body.unidade, req.body.frequencia],
             
             (error, result, field) => {
                 conn.release();
@@ -43,7 +43,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
                     });
                 } 
                 res.status(201).send({
-                    mensagem : 'Venda adicionada com sucesso!'
+                    mensagem : 'Venda adicionada com sucesso!',
+                    id_venda: result.insertId
                 });
             }
         )
@@ -59,9 +60,9 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE vendas SET desc_venda = ?, desc_comprador = ?, data_venda = ?, qtd_venda = ?, valor_venda = ?, num_pedido = ?, uni_venda = ? WHERE id_vendas = ?',   
+            'UPDATE vendas SET descricao = ?, comprador = ?, data = ?, quantidade = ?, valor = ?, numero = ?, unidade = ? WHERE id = ?',   
 
-            [req.body.desc_venda, req.body.desc_comprador, req.body.data_venda, req.body.qtd_venda, req.body.valor_venda, req.body.num_pedido, req.body.uni_venda, req.body.id_vendas],
+            [req.body.descricao, req.body.comprador, req.body.data, req.body.quantidade, req.body.valor, req.body.numero, req.body.unidade, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +89,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM vendas WHERE id_vendas = ?',             
-            [req.body.id_vendas],
+            'DELETE FROM vendas WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

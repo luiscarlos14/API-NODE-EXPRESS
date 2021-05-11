@@ -24,7 +24,7 @@ router.get('/', protected.obrigatorio, (req, res, next)=>{
     });
 });
 
-router.post('/', protected.obrigatorio, (req, res, next) =>{
+router.post('/', (req, res, next) =>{
 
     mysql.getConnection((error, conn) =>{
 

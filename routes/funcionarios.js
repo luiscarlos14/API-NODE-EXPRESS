@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE funcionario SET nome = ?, salario = ?, endereco = ? WHERE id_func = ?',             
-            [req.body.nome, req.body.salario, req.body.endereco, req.body.id_func],
+            'UPDATE funcionario SET nome = ?, salario = ?, endereco = ? WHERE id = ?',             
+            [req.body.nome, req.body.salario, req.body.endereco, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM funcionario WHERE id_func = ?',             
-            [req.body.id_funcionario],
+            'DELETE FROM funcionario WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

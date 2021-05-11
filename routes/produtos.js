@@ -32,8 +32,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO produto (usuario_produto, fornec_produto, desc_produto, valor_produto, qtd_produto, uni_produto) VALUES (?,?,?,?,?,?)',
-            [req.body.usuario_produto, req.body.fornec_produto,req.body.desc_produto, req.body.valor_produto, req.body.qtd_produto, req.body.uni_produto],
+            'INSERT INTO produto (usuario, fornecedor, descricao, valor, quantidade, unidade) VALUES (?,?,?,?,?,?)',
+            [req.body.usuario, req.body.fornecedor,req.body.descricao, req.body.valor, req.body.quantidade, req.body.unidade],
             
             (error, result, field) => {
                 conn.release();
@@ -45,7 +45,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
                     });
                 } 
                 res.status(201).send({
-                    mensagem : 'Produto inserido com sucesso!'
+                    mensagem : 'Produto inserido com sucesso!',
+                    id_produto: result.insertId
                 });
             }
         )
@@ -61,8 +62,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE produto SET desc_produto = ?, valor_produto = ?, qtd_produto = ?, uni_produto = ? WHERE id_produto = ?',             
-            [req.body.desc_produto, req.body.valor_produto, req.body.qtd_produto,req.body.uni_produto, req.body.id_produto],
+            'UPDATE produto SET descricao = ?, valor = ?, quantidade = ?, unidade = ? WHERE id = ?',             
+            [req.body.descricao, req.body.valor, req.body.quantidade,req.body.unidade, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -89,8 +90,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM produto WHERE id_produto = ?',             
-            [req.body.id_produto],
+            'DELETE FROM produto WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

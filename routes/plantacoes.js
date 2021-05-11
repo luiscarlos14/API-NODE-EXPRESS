@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO plantacao (plant_usuario, plant_praga, desc_plantio, data_plantio, praga) VALUES (?,?,?,?,?)',
-            [req.body.plant_usuario, req.body.plant_praga, req.body.desc_plantio, req.body.data_plantio, req.body.praga],
+            'INSERT INTO plantacao (usuario, praga, descricao, data) VALUES (?,?,?,?)',
+            [req.body.usuario, req.body.praga, req.body.descricao, req.body.data],
             
             (error, result, field) => {
                 conn.release();
@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE plantacao SET plant_usuario = ?, plant_praga = ?, desc_plantio = ?, data_plantio = ?, praga = ? WHERE id_plantacao = ?',             
-            [req.body.plant_usuario, req.body.plant_praga,req.body.desc_plantio, req.body.data_plantio, req.body.praga, req.body.id_plantacao],
+            'UPDATE plantacao SET usuario = ?, praga = ?, descricao = ?, data = ? WHERE id = ?',             
+            [req.body.usuario, req.body.praga, req.body.descricao, req.body.data, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM plantacao WHERE id_plantacao = ?',             
-            [req.body.id_plantacao],
+            'DELETE FROM plantacao WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();
