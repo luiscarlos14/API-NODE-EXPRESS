@@ -2,7 +2,7 @@
     "env" : {
         "MYSQL_USER" : "root",
         "MYSQL_PASSWORD" : "",
-        "MYSQL_DATABASE" : "sertaosystem",
+        "MYSQL_DATABASE" : "heroku_cf6ff1cbc6adb2e",
         "MYSQL_HOST" : "localhost",
         "MYSQL_PORT" : 3306,
 

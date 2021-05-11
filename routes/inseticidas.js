@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO inseticida (desc_inset, inset_use) VALUES (?,?)',
-            [req.body.desc_inset, req.body.inset_use],
+            'INSERT INTO inseticida (descricao, usado) VALUES (?,?)',
+            [req.body.descricao, req.body.usado],
             
             (error, result, field) => {
                 conn.release();
@@ -59,8 +59,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE inseticida SET desc_inset = ? WHERE id_inset = ?',             
-            [req.body.desc_inset, req.body.id_inset],
+            'UPDATE inseticida SET descricao = ? WHERE id = ?',             
+            [req.body.descricao, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -87,8 +87,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM inseticida WHERE id_inset = ?',             
-            [req.body.id_inset],
+            'DELETE FROM inseticida WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();

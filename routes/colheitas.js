@@ -30,8 +30,8 @@ router.post('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'INSERT INTO colheita (plant_usuario, func_colheita, desc_colheita, qtd_colheita, uni_colheita, data_colheita) VALUES (?,?,?,?,?,?)',
-            [req.body.plant_usuario, req.body.func_colheita, req.body.desc_colheita, req.body.qtd_colheita, req.body.uni_colheita, req.body.data_colheita],
+            'INSERT INTO colheita (usuario, funcionario, descricao, quantidade, data, unidade) VALUES (?,?,?,?,?,?)',
+            [req.body.usuario, req.body.funcinario, req.body.descricao, req.body.quantidade, req.body.data, req.body.unidade],
             
             (error, result, field) => {
                 conn.release();
@@ -60,8 +60,8 @@ router.patch('/', protected.obrigatorio, (req, res, next) =>{
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'UPDATE colheita SET func_colheita = ?, desc_colheita = ?, qtd_colheita = ?, uni_colheita = ?, data_colheita = ? WHERE id_colheita = ?',             
-            [req.body.func_colheita, req.body.desc_colheita, req.body.qtd_colheita, req.body.uni_colheita, req.body.data_colheita, req.body.id_colheita],
+            'UPDATE colheita SET funcionario = ?, descricao = ?, quantidade = ?, data = ?, unidade = ? WHERE id = ?',             
+            [req.body.funcionario, req.body.descricao, req.body.quantidade, req.body.data, req.body.unidade, req.body.id],
             
             (error, result, field) => {
                 conn.release();
@@ -88,8 +88,8 @@ router.delete('/', protected.obrigatorio, (req, res, next) => {
         if(error){ return res.status(500).send({ error : error });}
 
         conn.query(
-            'DELETE FROM colheita WHERE id_colheita = ?',             
-            [req.body.id_colheita],
+            'DELETE FROM colheita WHERE id = ?',             
+            [req.body.id],
             
             (error, result, field) => {
                 conn.release();
