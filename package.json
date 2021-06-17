@@ -12,7 +12,7 @@
     "NODE",
     "Desenvolvimento"
   ],
-  "author": "Vinícius Souza",
+  "author": "Vinícius Souza e Luís Carlos Barros",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
